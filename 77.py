@@ -1,10 +1,42 @@
 import pyxel
 
 class Ball:
+    speed = 3
+   
+    def __init__(self):
+        self.restart()
+   
+    def move(self):
+        if (self.y <= 0) or (self.y >= 200):
+            self.vy *= -1
+            Ball.speed*=1.1
+   
+    def restart(self):
+        self.x = 200
+        self.y = 1
+        angle = pyxel.rndi(30,150)
+        self.vx = pyxel.sin(angle)
+        self.vy = pyxel.cos(angle)
         Ball.speed=3
 
 
 class Pad:
+    def __init__(self,x):
+        self.x = x
+        self.y = 50
+        self.score = 0
+        self.miss = 0
+   
+    def catch1(self, thisball):
+        if thisball.x-10<self.x+5 and thisball.x-10>self.x and thisball.y+7>self.y and thisball.y-7<self.y+40:
+            return True
+        else:
+            return False
+        
+    def catch2(self, thisball):
+        if thisball.x+10<self.x+5 and thisball.x+10>self.x and thisball.y+7>self.y and thisball.y-7<self.y+40:
+            return True
+        else:
             return False
 
 
